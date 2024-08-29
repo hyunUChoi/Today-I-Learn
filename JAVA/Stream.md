@@ -126,11 +126,17 @@ String result = stream.reduce("영",(a1,a2) ->  a1 + " + " + a2); // 영 + 일 
 - 스트림을 원하는 자료형으로 변환
 ```
 // 배열변환
-String[] arr = list.stream().toArray(String[]::new);
+String[] arr = list.stream().toArray(String[]::new); // 이 뒤는 변형하고하는 타입으로 바꾸면 됨
 
 // List, Set, Map 변환
-list.stream().collect(Collectors.toList()); // 변환하시고 싶은 형태로 바꾸기만 하면 됨 -> toList() / toSet() / toMap()
+Arrays.stream(arr).collect(Collectors.toList()); // 변환하시고 싶은 형태로 바꾸기만 하면 됨 -> toList() / toSet() / toMap()
 
 // 요소 연결
 list.stream().collect(Collectors.joining("?")); // 연결하고 싶은 문자 넣으면 됨
 ```
+- 이 밖에 Matching, Finding, Grouping 등이 있지만 너무 길어질거 같아서 주로 많이 사용되는 것 위주로만 정리했다.
+<br>
+
+## 결론
+👍 Stream은 Primitive Type을 다룰때는 일반적인 for문보다 느린 성능을 보이기 때문에 코드의 가독성을 높히고 코드의 양을 줄이는 것도 중요하지만 너무 남발하지 않도록 조심해야겠다!!<br>
+~~하지만 간지나잖어 한잔 해~~
