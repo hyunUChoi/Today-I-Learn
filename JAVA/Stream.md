@@ -67,7 +67,7 @@ Arrays.stream(dummy)/dummy.stream().sorted();
 // 이 밖에 compareTo 메소드를 사용해서 커스텀 정렬도 가능!
 ```
 
-### distinct, skip, limit, peek
+### distinct, skip, limit, peek, boxed
 ```
 // 중복제거
 .distinct()
@@ -81,7 +81,56 @@ Arrays.stream(dummy)/dummy.stream().sorted();
 // 작업 특정 시점에서의 디버깅 용도
 // 주의) peek는 중간연산(filter, map 등)에서는 작동하지 않고 최종연산(collect, 연산(count, sum 등) 등)이 있는 경우에만 동작한다
 .peek()
+
+// IntStream이나 DoubleStream과 같은 언박싱된 객체를 Stream 객체로 박싱해주는 용도
+.boxed()
 ```
 <br>
 
 ## Stearm 결과만들기(최종연산)
+### 연산
+- 스트림 요소들의 합, 평균, 최대값, 최소값, 카운팅 등의 연산
+```
+// 각 최종 연산 후에는 Optionnal 값으로 리턴되기 때문에 각 연산에 맞게 mapTo~~ 또는 .getAs~~() 등을 붙여줘야한다!!!
+//합
+.sum().getAsInt()
+
+// 평균
+.average().getAsDouble()
+
+// 최대값
+.max().getAsInt()
+
+// 최소값
+.min().getAsInt()
+
+// 카운팅
+.count()
+```
+
+### 출력
+- 스트림 요소들을 출력할 때 보통 사용
+```
+Arrays.stream(dummy)/dummy.stream().forEach(n-> System.out.print(n + " ")) or .forEach(System.out::println)
+```
+
+### 소모
+- 스트림 내 요소들을 하나씩 줄여가며 누적연산 수행
+- reduce(초기값, (누적변수, 요소) -> 수행문)
+```
+Stream<String> stream = Stream.of("일","이","삼","사");
+String result = stream.reduce("영",(a1,a2) ->  a1 + " + " + a2); // 영 + 일 + 이 + 삼 + 사
+```
+
+### 수집🌟🌟
+- 스트림을 원하는 자료형으로 변환
+```
+// 배열변환
+String[] arr = list.stream().toArray(String[]::new);
+
+// List, Set, Map 변환
+list.stream().collect(Collectors.toList()); // 변환하시고 싶은 형태로 바꾸기만 하면 됨 -> toList() / toSet() / toMap()
+
+// 요소 연결
+list.stream().collect(Collectors.joining("?")); // 연결하고 싶은 문자 넣으면 됨
+```
