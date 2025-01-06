@@ -6,5 +6,5 @@ user-name : system
 password : oracle
 ```
 
-create user [userName] identified [pw];  
-grant connect, resource to [userName];
+SQL> create user [userName] identified [pw];  
+SQL > grant connect, resource to [userName];
